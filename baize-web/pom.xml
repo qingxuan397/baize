@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.qingxuan.baize</groupId>
+        <artifactId>baize-dependencies</artifactId>
+        <version>${revision}</version>
+        <relativePath>../baize-dependencies</relativePath>
+    </parent>
+    <artifactId>baize-web</artifactId>
+    <packaging>pom</packaging>
+    <name>${project.artifactId}</name>
+    <description>Baize Web</description>
+    <properties>
+        <main.basedir>${basedir}/..</main.basedir>
+    </properties>
+    <build>
+        <filters>
+            <!-- 引入外置配置文件 -->
+            <filter>${basedir}/src/main/filters/filter-${env}.properties</filter>
+        </filters>
+        <resources>
+            <resource>
+                <directory>${basedir}/src/main/resources</directory>
+                <!-- 表示是否对配置文件中的占位符进行解析替换-->
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+    </build>
+    <profiles>
+        <!--设计环境-->
+        <!--用于设计阶段生成API文档使用，不作为发布的环境-->
+        <profile>
+            <id>design</id>
+            <properties>
+                <env>design</env>
+            </properties>
+        </profile>
+        <!--开发环境-->
+        <profile>
+            <id>development</id>
+            <properties>
+                <env>development</env>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+        <!--测试环境-->
+        <profile>
+            <id>test</id>
+            <properties>
+                <env>test</env>
+            </properties>
+        </profile>
+        <!--预生产环境-->
+        <profile>
+            <id>preproduction</id>
+            <properties>
+                <env>preproduction</env>
+            </properties>
+        </profile>
+        <!--生产环境-->
+        <profile>
+            <id>product</id>
+            <properties>
+                <env>product</env>
+            </properties>
+        </profile>
+    </profiles>
+</project>
